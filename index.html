@@ -3,50 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>流量主与商户调研表</title>
+<title>调研问卷 — 流量主与商户</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
+:root {
+  --bg: #faf8f5;
+  --primary: #1a3a2e;
+  --accent: #c44536;
+  --gold: #d4a574;
+  --text: #2d2d2d;
+  --text-muted: #6b6b6b;
+  --border: #e8e2d8;
+  --card: #ffffff;
+  --serif: 'Fraunces', 'Noto Serif SC', Georgia, serif;
+  --sans: 'Noto Sans SC', -apple-system, sans-serif;
+}
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; }
-.container { max-width: 800px; width: 100%; text-align: center; }
-.header { margin-bottom: 50px; color: #fff; }
-.header h1 { font-size: 36px; margin-bottom: 12px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-.header p { font-size: 16px; opacity: 0.9; }
-.cards { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
-.card { background: #fff; border-radius: 20px; padding: 40px 30px; width: 320px; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; text-decoration: none; color: #333; display: block; }
-.card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-.card-icon { width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; }
-.card-merchant .card-icon { background: linear-gradient(135deg, #6366f1, #818cf8); }
-.card-influencer .card-icon { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
-.card h2 { font-size: 22px; margin-bottom: 10px; }
-.card p { font-size: 14px; color: #666; line-height: 1.6; }
-.card .arrow { margin-top: 20px; font-size: 24px; color: #6366f1; transition: transform 0.3s; }
-.card:hover .arrow { transform: translateX(8px); }
-.card-influencer .arrow { color: #f59e0b; }
-.footer { margin-top: 50px; color: rgba(255,255,255,0.7); font-size: 13px; }
-@media (max-width: 640px) { .header h1 { font-size: 26px; } .cards { flex-direction: column; align-items: center; } .card { width: 100%; max-width: 320px; } }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Ccircle cx='2' cy='2' r='0.3' fill='%231a3a2e' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; }
+.wrap { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 48px 24px; }
+
+.masthead { border-bottom: 2px solid var(--primary); padding-bottom: 24px; margin-bottom: 64px; display: flex; justify-content: space-between; align-items: flex-end; }
+.masthead .vol { font-family: var(--serif); font-size: 13px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; }
+.masthead .date { font-size: 12px; color: var(--text-muted); letter-spacing: 1px; }
+
+.hero { margin-bottom: 72px; }
+.hero .eyebrow { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--accent); margin-bottom: 16px; }
+.hero h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(40px, 6vw, 64px); line-height: 1.05; color: var(--primary); letter-spacing: -1px; margin-bottom: 24px; }
+.hero h1 em { font-style: italic; color: var(--accent); font-weight: 400; }
+.hero .lede { font-size: 17px; line-height: 1.8; color: var(--text-muted); max-width: 560px; }
+.hero .lede::first-letter { font-family: var(--serif); font-size: 56px; font-weight: 600; float: left; line-height: 0.9; margin: 4px 8px 0 0; color: var(--primary); }
+
+.choices { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 64px; }
+@media (max-width: 680px) { .choices { grid-template-columns: 1fr; } }
+
+.choice { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 40px 32px; text-decoration: none; color: var(--text); transition: all 0.3s ease; overflow: hidden; }
+.choice::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--primary); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+.choice:hover::before { transform: scaleX(1); }
+.choice:hover { border-color: var(--primary); box-shadow: 0 8px 32px rgba(26,58,46,0.08); transform: translateY(-2px); }
+.choice .num { font-family: var(--serif); font-size: 14px; color: var(--gold); letter-spacing: 2px; margin-bottom: 20px; }
+.choice .num span { font-size: 32px; font-weight: 600; color: var(--primary); }
+.choice h2 { font-family: var(--serif); font-weight: 600; font-size: 28px; color: var(--primary); margin-bottom: 12px; }
+.choice p { font-size: 14px; line-height: 1.7; color: var(--text-muted); margin-bottom: 24px; }
+.choice .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.choice .tag { font-size: 12px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 2px; color: var(--text-muted); }
+.choice .go { font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+.choice .go::after { content: '→'; transition: transform 0.3s ease; }
+.choice:hover .go::after { transform: translateX(6px); }
+
+.colophon { border-top: 1px solid var(--border); padding-top: 32px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-muted); }
+.colophon .mark { font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--primary); }
+@media (max-width: 680px) { .colophon { flex-direction: column; gap: 12px; } }
+
+.fade-in { animation: fadeIn 0.6s ease both; }
+.fade-in:nth-child(2) { animation-delay: 0.1s; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <h1>流量主与商户调研表</h1>
-    <p>请选择您的身份，填写对应调研表</p>
+<div class="wrap">
+  <div class="masthead">
+    <span class="vol">Vol. 01 — 调研特刊</span>
+    <span class="date" id="date"></span>
   </div>
-  <div class="cards">
-    <a href="merchant.html" class="card card-merchant">
-      <div class="card-icon">🏢</div>
-      <h2>我是商户</h2>
-      <p>广告主 / 品牌方<br>投放需求、预算、素材要求</p>
-      <div class="arrow">→</div>
+
+  <section class="hero fade-in">
+    <div class="eyebrow">问卷调研</div>
+    <h1>了解你，<br>是为了更好地<em>合作</em>。</h1>
+    <p class="lede">这份问卷不会占用你太多时间。无论你是寻找优质流量位的品牌方，还是希望将内容变现的创作者，我们都需要了解一些基本情况，以便提供更精准的匹配服务。</p>
+  </section>
+
+  <div class="choices">
+    <a href="merchant.html" class="choice fade-in">
+      <div class="num"><span>01</span> / 商户</div>
+      <h2>我是品牌方</h2>
+      <p>拥有产品或服务，希望通过内容创作者进行推广投放。</p>
+      <div class="tags">
+        <span class="tag">企业信息</span>
+        <span class="tag">投放需求</span>
+        <span class="tag">预算范围</span>
+      </div>
+      <div class="go">填写商户调研表</div>
     </a>
-    <a href="influencer.html" class="card card-influencer">
-      <div class="card-icon">🎬</div>
-      <h2>我是流量主</h2>
-      <p>内容创作者 / 达人<br>账号数据、创作能力、合作意愿</p>
-      <div class="arrow">→</div>
+    <a href="influencer.html" class="choice fade-in">
+      <div class="num"><span>02</span> / 流量主</div>
+      <h2>我是内容创作者</h2>
+      <p>在社交平台拥有粉丝和内容产出能力，希望通过商业合作实现变现。</p>
+      <div class="tags">
+        <span class="tag">账号数据</span>
+        <span class="tag">创作能力</span>
+        <span class="tag">合作意愿</span>
+      </div>
+      <div class="go">填写流量主调研表</div>
     </a>
   </div>
-  <div class="footer">感谢您的参与，您的反馈对我们非常重要</div>
+
+  <div class="colophon">
+    <span class="mark">Survey Press</span>
+    <span>所有数据仅用于内部评估，严格保密</span>
+  </div>
 </div>
+<script>document.getElementById('date').textContent = new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });</script>
 </body>
 </html>
