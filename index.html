@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>流量主与商户调研表</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif; line-height: 1.8; color: #333; background: #f0f2f5; padding: 20px; }
+.container { max-width: 900px; margin: 0 auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+.header { text-align: center; padding: 40px 20px 30px; background: linear-gradient(135deg, #6366f1, #818cf8); color: #fff; }
+.header h1 { font-size: 28px; margin-bottom: 10px; }
+.header p { font-size: 14px; opacity: 0.9; }
+.content { padding: 30px; }
+.section { margin-bottom: 35px; }
+.section-title { font-size: 18px; font-weight: bold; color: #333; margin-bottom: 15px; padding-left: 12px; border-left: 4px solid #6366f1; }
+.subtitle { font-size: 15px; font-weight: bold; color: #4f46e5; margin: 20px 0 10px; padding: 8px 12px; background: #eef2ff; border-radius: 6px; }
+.table { width: 100%; border-collapse: collapse; margin-bottom: 15px; border-radius: 8px; overflow: hidden; }
+.table th, .table td { border: 1px solid #e5e7eb; padding: 12px; text-align: left; }
+.table th { background: #f9fafb; font-weight: bold; width: 25%; color: #374151; }
+.table td { width: 75%; }
+.radio-group, .checkbox-group { display: flex; flex-wrap: wrap; gap: 12px; }
+.radio-item, .checkbox-item { display: flex; align-items: center; gap: 5px; }
+input[type="text"], input[type="email"], input[type="tel"], select, textarea { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; font-family: inherit; transition: border-color 0.2s, box-shadow 0.2s; }
+input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, select:focus, textarea:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.1); }
+textarea { resize: vertical; min-height: 80px; }
+input[type="radio"], input[type="checkbox"] { width: 16px; height: 16px; accent-color: #6366f1; }
+.divider { height: 1px; background: #e5e7eb; margin: 30px 0; }
+.note { background: #fef3c7; padding: 15px; border-radius: 8px; margin-top: 20px; font-size: 14px; color: #92400e; border: 1px solid #fde68a; }
+.submit-area { text-align: center; padding: 30px 0 10px; }
+.submit-btn { display: inline-block; padding: 14px 48px; font-size: 16px; font-weight: bold; color: #fff; background: linear-gradient(135deg, #6366f1, #818cf8); border: none; border-radius: 50px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(99,102,241,0.3); }
+.submit-btn:active { transform: translateY(0); }
+.success-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; justify-content: center; align-items: center; }
+.success-overlay.show { display: flex; }
+.success-card { background: #fff; padding: 40px; border-radius: 16px; text-align: center; max-width: 400px; animation: popIn 0.4s ease; }
+@keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.success-icon { width: 64px; height: 64px; margin: 0 auto 20px; background: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; color: #fff; }
+.success-card h2 { color: #333; margin-bottom: 10px; }
+.success-card p { color: #666; font-size: 14px; margin-bottom: 20px; }
+.success-card .btn { padding: 10px 30px; background: #6366f1; color: #fff; border: none; border-radius: 50px; cursor: pointer; font-size: 14px; }
+@media (max-width: 640px) {
+  body { padding: 10px; }
+  .content { padding: 15px; }
+  .header h1 { font-size: 22px; }
+  .table th { width: 35%; }
+  .radio-group, .checkbox-group { gap: 8px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+<h1>流量主与商户调研表</h1>
+<p>感谢您参与本次调研，您的反馈对我们非常重要</p>
+</div>
+
+<div class="content">
+<form action="https://formsubmit.co/32313817@qq.com" method="POST" id="surveyForm">
+
+<!-- Formsubmit 配置 -->
+<input type="hidden" name="_subject" value="新的调研表提交">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_next" value="">
+
+<div class="section">
+<div class="section-title">一、基本信息</div>
+<table class="table">
+<tr><th>您的角色 <span style="color:#ef4444">*</span></th><td>
+<div class="radio-group">
+<div class="radio-item"><input type="radio" name="role" value="商户" id="role-merchant" required><label for="role-merchant">商户（广告主）</label></div>
+<div class="radio-item"><input type="radio" name="role" value="流量主" id="role-influencer"><label for="role-influencer">流量主（内容创作者）</label></div>
+</div>
+</td></tr>
+<tr><th>姓名 <span style="color:#ef4444">*</span></th><td><input type="text" name="姓名" placeholder="请输入您的姓名" required></td></tr>
+<tr><th>联系电话 <span style="color:#ef4444">*</span></th><td><input type="tel" name="联系电话" placeholder="请输入您的联系电话" required></td></tr>
+<tr><th>电子邮箱 <span style="color:#ef4444">*</span></th><td><input type="email" name="邮箱" placeholder="请输入您的电子邮箱" required></td></tr>
+<tr><th>所在城市</th><td><input type="text" name="所在城市" placeholder="请输入您所在的城市"></td></tr>
+</table>
+</div>
+
+<div class="section">
+<div class="section-title">二、商户调研（广告主）</div>
+
+<div class="subtitle">2.1 企业信息</div>
+<table class="table">
+<tr><th>公司名称</th><td><input type="text" name="公司名称" placeholder="请输入公司全称"></td></tr>
+<tr><th>所属行业</th><td><select name="所属行业">
+<option value="">请选择行业</option>
+<option value="电子商务">电子商务</option>
+<option value="金融服务">金融服务</option>
+<option value="教育培训">教育培训</option>
+<option value="医疗健康">医疗健康</option>
+<option value="餐饮食品">餐饮食品</option>
+<option value="零售百货">零售百货</option>
+<option value="科技产品">科技产品</option>
+<option value="生活服务">生活服务</option>
+<option value="其他">其他</option>
+</select></td></tr>
+<tr><th>公司规模</th><td>
+<div class="radio-group">
+<div class="radio-item"><input type="radio" name="公司规模" value="小型(1-50人)"><label>小型（1-50人）</label></div>
+<div class="radio-item"><input type="radio" name="公司规模" value="中型(51-200人)"><label>中型（51-200人）</label></div>
+<div class="radio-item"><input type="radio" name="公司规模" value="大型(200人以上)"><label>大型（200人以上）</label></div>
+</div>
+</td></tr>
+<tr><th>公司简介</th><td><textarea name="公司简介" placeholder="请简要介绍您的公司业务"></textarea></td></tr>
+</table>
+
+<div class="subtitle">2.2 广告投放需求</div>
+<table class="table">
+<tr><th>投放目标</th><td>
+<div class="checkbox-group">
+<div class="checkbox-item"><input type="checkbox" name="投放目标" value="品牌曝光"><label>品牌曝光</label></div>
+<div class="checkbox-item"><input type="checkbox" name="投放目标" value="产品销售"><label>产品销售</label></div>
+<div class="checkbox-item"><input type="checkbox" name="投放目标" value="引流获客"><label>引流获客</label></div>
+<div class="checkbox-item"><input type="checkbox" name="投放目标" value="APP下载"><label>APP下载</label></div>
+<div class="checkbox-item"><input type="checkbox" name="投放目标" value="活动推广"><label>活动推广</label></div>
+</div>
+</td></tr>
+<tr><th>预算范围</th><td>
+<div class="radio-group">
+<div class="radio-item"><input type="radio" name="预算范围" value="1-5万元"><label>1-5万元</label></div>
+<div class="radio-item"><input type="radio" name="预算范围" value="5-10万元"><label>5-10万元</label></div>
+<div class="radio-item"><input type="radio" name="预算范围" value="10-50万元"><label>10-50万元</label></div>
+<div class="radio-item"><input type="radio" name="预算范围" value="50-100万元"><label>50-100万元</label></div>
+<div class="radio-item"><input type="radio" name="预算范围" value="100万元以上"><label>100万元以上</label></div>
+</div>
+</td></tr>
+<tr><th>期望投放周期</th><td><select name="投放周期">
+<option value="">请选择</option>
+<option value="1-2周">1-2周</option>
+<option value="1-2个月">1-2个月</option>
+<option value="3-6个月">3-6个月</option>
+<option value="6个月以上">6个月以上</option>
+</select></td></tr>
+<tr><th>目标受众</th><td><textarea name="目标受众" placeholder="请描述您的目标用户群体（年龄、性别、兴趣爱好等）"></textarea></td></tr>
+<tr><th>素材准备情况</th><td>
+<div class="radio-group">
+<div class="radio-item"><input type="radio" name="素材准备" value="已有完整素材"><label>已有完整素材</label></div>
+<div class="radio-item"><input type="radio" name="素材准备" value="部分素材需补充"><label>部分素材，需补充</label></div>
+<div class="radio-item"><input type="radio" name="素材准备" value="暂无素材需要协助"><label>暂无素材，需要协助</label></div>
+</div>
+</td></tr>
+<tr><th>素材要求</th><td><textarea name="素材要求" placeholder="请描述对广告素材的具体要求（风格、尺寸、内容方向等）"></textarea></td></tr>
+</table>
+
+<div class="subtitle">2.3 合作偏好</div>
+<table class="table">
+<tr><th>偏好平台</th><td>
+<div class="checkbox-group">
+<div class="checkbox-item"><input type="checkbox" name="偏好平台" value="抖音"><label>抖音</label></div>
+<div class="checkbox-item"><input type="checkbox" name="偏好平台" value="快手"><label>快手</label></div>
+<div class="checkbox-item"><input type="checkbox" name="偏好平台" value="小红书"><label>小红书</label></div>
+<div class="checkbox-item"><input type="checkbox" name="偏好平台" value="Bilibili"><label>Bilibili</label></div>
+<div class="checkbox-item"><input type="checkbox" name="偏好平台" value="微信视频号"><label>微信视频号</label></div>
+<div class="checkbox-item"><input type="checkbox" name="偏好平台" value="其他"><label>其他</label></div>
+</div>
+</td></tr>
+<tr><th>期望流量主粉丝量级</th><td>
+<div class="radio-group">
+<div class="radio-item"><input type="radio" name="期望粉丝量级" value="10万以下"><label>10万以下</label></div>
+<div class="radio-item"><input type="radio" name="期望粉丝量级" value="10-50万"><label>10-50万</label></div>
+<div class="radio-item"><input type="radio" name="期望粉丝量级" value="50-100万"><label>50-100万</label></div>
+<div class="radio-item"><input type="radio" name="期望粉丝量级" value="100-500万"><label>100-500万</label></div>
+<div class="radio-item"><input type="radio" name="期望粉丝量级" value="500万以上"><label>500万以上</label></div>
+</div>
+</td></tr>
+<tr><th>期望效果指标</th><td><textarea name="期望效果指标" placeholder="请描述您期望达到的具体效果（如转化率、曝光量、互动量等）"></textarea></td></tr>
+<tr><th>合作经验</th><td>
+<div class="radio-group">
+<div class="radio-item"><input type="radio" name="合作经验" value="从未合作过"><label>从未合作过</label></div>
+<div class="radio-item"><input type="radio" name="合作经验" value="1-3次"><label>1-3次</label></div>
+<div class="radio-item"><input type="radio" name="合作经验" value="3-10次"><label>3-10次</label></div>
+<div class="radio-item"><input type="radio" name="合作经验" value="10次以上"><label>10次以上</label></div>
+</div>
+</td></tr>
+<tr><th>其他需求或建议</th><td><textarea name="商户其他建议" placeholder="请补充其他需求或建议"></textarea></td></tr>
+</table>
+</div>
+
+<div class="section">
+<div class="section-title">三、流量主调研（内容创作者）</div>
+
+<div class="subtitle">3.1 个人信息</div>
+<table class="table">
+<tr><th>昵称</th><td><input type="text" name="昵称" placeholder="请输入您的账号昵称"></td></tr>
+<tr><th>性别</th><td>
+<div class="radio-group">
+<div class="radio-item"><input type="radio" name="性别" value="男"><label>男</label></div>
+<div class="radio-item"><input type="radio" name="性别" value="女"><label>女</label></div>
+</div>
+</td></tr>
+<tr><th>年龄</th><td><select name="年龄">
+<option value="">请选择年龄段</option>
+<option value="18-24岁">18-24岁</option>
+<option value="25-30岁">25-30岁</option>
+<option value="31-40岁">31-40岁</option>
+<option value="41-50岁">41-50岁</option>
+<option value="50岁以上">50岁以上</option>
+</select></td></tr>
+<tr><th>职业</th><td><input type="text" name="职业" placeholder="请输入您的职业"></td></tr>
+</table>
+
+<div class="subtitle">3.2 账号数据</div>
+<table class="table">
+<tr><th>运营平台</th><td>
+<div class="checkbox-group">
+<div class="checkbox-item"><input type="checkbox" name="运营平台" value="抖音"><label>抖音</label></div>
+<div class="checkbox-item"><input type="checkbox" name="运营平台" value="快手"><label>快手</label></div>
+<div class="checkbox-item"><input type="checkbox" name="运营平台" value="小红书"><label>小红书</label></div>
+<div class="checkbox-item"><input type="checkbox" name="运营平台" value="Bilibili"><label>Bilibili</label></div>
+<div class="checkbox-item"><input type="checkbox" name="运营平台" value="微信视频号"><label>微信视频号</label></div>
+<div class="checkbox-item"><input type="checkbox" name="运营平台" value="微博"><label>微博</label></div>
+<div class="checkbox-item"><input type="checkbox" name="运营平台" value="其他"><label>其他</label></div>
+</div>
+</td></tr>
+<tr><th>主要平台账号链接</th><td><input type="text" name="账号链接" placeholder="请输入您主要平台的账号链接"></td></tr>
+<tr><th>粉丝数量</th><td>
+<div class="radio-group">
+<div class="radio-item"><input type="radio" name="粉丝数量" value="1万以下"><label>1万以下</label></div>
+<div class="radio-item"><input type="radio" name="粉丝数量" value="1-10万"><label>1-10万</label></div>
+<div class="radio-item"><input type="radio" name="粉丝数量" value="10-50万"><label>10-50万</label></div>
+<div class="radio-item"><input type="radio" name="粉丝数量" value="50-100万"><label>50-100万</label></div>
+<div class="radio-item"><input type="radio" name="粉丝数量" value="100-500万"><label>100-500万</label></div>
+<div class="radio-item"><input type="radio" name="粉丝数量" value="500万以上"><label>500万以上</label></div>
+</div>
+</td></tr>
+<tr><th>内容类型</th><td>
+<div class="checkbox-group">
+<div class="checkbox-item"><input type="checkbox" name="内容类型" value="美妆护肤"><label>美妆护肤</label></div>
+<div class="checkbox-item"><input type="checkbox" name="内容类型" value="时尚穿搭"><label>时尚穿搭</label></div>
+<div class="checkbox-item"><input type="checkbox" name="内容类型" value="美食探店"><label>美食探店</label></div>
+<div class="checkbox-item"><input type="checkbox" name="内容类型" value="旅游出行"><label>旅游出行</label></div>
+<div class="checkbox-item"><input type="checkbox" name="内容类型" value="游戏电竞"><label>游戏电竞</label></div>
+<div class="checkbox-item"><input type="checkbox" name="内容类型" value="科技数码"><label>科技数码</label></div>
+<div class="checkbox-item"><input type="checkbox" name="内容类型" value="知识教育"><label>知识教育</label></div>
+<div class="checkbox-item"><input type="checkbox" name="内容类型" value="生活家居"><label>生活家居</label></div>
+<div class="checkbox-item"><input type="checkbox" name="内容类型" value="健身运动"><label>健身运动</label></div>
+<div class="checkbox-item"><input type="checkbox" name="内容类型" value="其他"><label>其他</label></div>
+</div>
+</td></tr>
+<tr><th>平均播放量</th><td>
+<div class="radio-group">
+<div class="radio-item"><input type="radio" name="平均播放量" value="1千以下"><label>1千以下</label></div>
+<div class="radio-item"><input type="radio" name="平均播放量" value="1-10千"><label>1-10千</label></div>
+<div class="radio-item"><input type="radio" name="平均播放量" value="10-50千"><label>10-50千</label></div>
+<div class="radio-item"><input type="radio" name="平均播放量" value="50-100千"><label>50-100千</label></div>
+<div class="radio-item"><input type="radio" name="平均播放量" value="10万以上"><label>10万以上</label></div>
+</div>
+</td></tr>
+<tr><th>平均互动率</th><td>
+<div class="radio-group">
+<div class="radio-item"><input type="radio" name="平均互动率" value="1%以下"><label>1%以下</label></div>
+<div class="radio-item"><input type="radio" name="平均互动率" value="1%-3%"><label>1%-3%</label></div>
+<div class="radio-item"><input type="radio" name="平均互动率" value="3%-5%"><label>3%-5%</label></div>
+<div class="radio-item"><input type="radio" name="平均互动率" value="5%-10%"><label>5%-10%</label></div>
+<div class="radio-item"><input type="radio" name="平均互动率" value="10%以上"><label>10%以上</label></div>
+</div>
+</td></tr>
+<tr><th>发布频率</th><td>
+<div class="radio-group">
+<div class="radio-item"><input type="radio" name="发布频率" value="每周1-3条"><label>每周1-3条</label></div>
+<div class="radio-item"><input type="radio" name="发布频率" value="每周3-7条"><label>每周3-7条</label></div>
+<div class="radio-item"><input type="radio" name="发布频率" value="每日1条以上"><label>每日1条以上</label></div>
+</div>
+</td></tr>
+</table>
+
+<div class="subtitle">3.3 创作能力</div>
+<table class="table">
+<tr><th>创作形式</th><td>
+<div class="checkbox-group">
+<div class="checkbox-item"><input type="checkbox" name="创作形式" value="短视频"><label>短视频</label></div>
+<div class="checkbox-item"><input type="checkbox" name="创作形式" value="直播"><label>直播</label></div>
+<div class="checkbox-item"><input type="checkbox" name="创作形式" value="图文"><label>图文</label></div>
+<div class="checkbox-item"><input type="checkbox" name="创作形式" value="长视频"><label>长视频</label></div>
+</div>
+</td></tr>
+<tr><th>专业技能</th><td>
+<div class="checkbox-group">
+<div class="checkbox-item"><input type="checkbox" name="专业技能" value="拍摄"><label>拍摄</label></div>
+<div class="checkbox-item"><input type="checkbox" name="专业技能" value="剪辑"><label>剪辑</label></div>
+<div class="checkbox-item"><input type="checkbox" name="专业技能" value="文案"><label>文案</label></div>
+<div class="checkbox-item"><input type="checkbox" name="专业技能" value="设计"><label>设计</label></div>
+<div class="checkbox-item"><input type="checkbox" name="专业技能" value="主持"><label>主持</label></div>
+<div class="checkbox-item"><input type="checkbox" name="专业技能" value="其他"><label>其他</label></div>
+</div>
+</td></tr>
+<tr><th>设备情况</th><td>
+<div class="checkbox-group">
+<div class="checkbox-item"><input type="checkbox" name="设备情况" value="专业相机"><label>专业相机</label></div>
+<div class="checkbox-item"><input type="checkbox" name="设备情况" value="手机"><label>手机</label></div>
+<div class="checkbox-item"><input type="checkbox" name="设备情况" value="专业麦克风"><label>专业麦克风</label></div>
+<div class="checkbox-item"><input type="checkbox" name="设备情况" value="补光灯"><label>补光灯</label></div>
+<div class="checkbox-item"><input type="checkbox" name="设备情况" value="三脚架"><label>三脚架</label></div>
+<div class="checkbox-item"><input type="checkbox" name="设备情况" value="专业剪辑软件"><label>专业剪辑软件</label></div>
+</div>
+</td></tr>
+<tr><th>团队情况</th><td>
+<div class="radio-group">
+<div class="radio-item"><input type="radio" name="团队情况" value="个人创作"><label>个人创作</label></div>
+<div class="radio-item"><input type="radio" name="团队情况" value="2-3人小团队"><label>2-3人小团队</label></div>
+<div class="radio-item"><input type="radio" name="团队情况" value="MCN机构"><label>MCN机构</label></div>
+</div>
+</td></tr>
+</table>
+
+<div class="subtitle">3.4 合作意愿</div>
+<table class="table">
+<tr><th>品牌合作经验</th><td>
+<div class="radio-group">
+<div class="radio-item"><input type="radio" name="品牌合作经验" value="从未合作过"><label>从未合作过</label></div>
+<div class="radio-item"><input type="radio" name="品牌合作经验" value="1-3次"><label>1-3次</label></div>
+<div class="radio-item"><input type="radio" name="品牌合作经验" value="3-10次"><label>3-10次</label></div>
+<div class="radio-item"><input type="radio" name="品牌合作经验" value="10次以上"><label>10次以上</label></div>
+</div>
+</td></tr>
+<tr><th>期望合作品牌类型</th><td><textarea name="期望合作品牌" placeholder="请描述您期望合作的品牌类型或行业"></textarea></td></tr>
+<tr><th>不接受的品牌类型</th><td><textarea name="不接受品牌" placeholder="请描述您不接受合作的品牌类型"></textarea></td></tr>
+<tr><th>期望单条报价</th><td>
+<div class="radio-group">
+<div class="radio-item"><input type="radio" name="期望报价" value="1千元以下"><label>1千元以下</label></div>
+<div class="radio-item"><input type="radio" name="期望报价" value="1-5千元"><label>1-5千元</label></div>
+<div class="radio-item"><input type="radio" name="期望报价" value="5千-1万元"><label>5千-1万元</label></div>
+<div class="radio-item"><input type="radio" name="期望报价" value="1-5万元"><label>1-5万元</label></div>
+<div class="radio-item"><input type="radio" name="期望报价" value="5万元以上"><label>5万元以上</label></div>
+</div>
+</td></tr>
+<tr><th>可投入时间</th><td>
+<div class="radio-group">
+<div class="radio-item"><input type="radio" name="可投入时间" value="兼职(每周1-2天)"><label>兼职（每周1-2天）</label></div>
+<div class="radio-item"><input type="radio" name="可投入时间" value="半全职(每周3-4天)"><label>半全职（每周3-4天）</label></div>
+<div class="radio-item"><input type="radio" name="可投入时间" value="全职(每周5天以上)"><label>全职（每周5天以上）</label></div>
+</div>
+</td></tr>
+<tr><th>个人优势</th><td><textarea name="个人优势" placeholder="请描述您作为流量主的核心优势和特色"></textarea></td></tr>
+<tr><th>其他需求或建议</th><td><textarea name="流量主其他建议" placeholder="请补充其他需求或建议"></textarea></td></tr>
+</table>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+<div class="section-title">四、用户体验反馈</div>
+<table class="table">
+<tr><th>了解渠道</th><td>
+<div class="checkbox-group">
+<div class="checkbox-item"><input type="checkbox" name="了解渠道" value="社交媒体"><label>社交媒体</label></div>
+<div class="checkbox-item"><input type="checkbox" name="了解渠道" value="搜索引擎"><label>搜索引擎</label></div>
+<div class="checkbox-item"><input type="checkbox" name="了解渠道" value="朋友推荐"><label>朋友推荐</label></div>
+<div class="checkbox-item"><input type="checkbox" name="了解渠道" value="线下活动"><label>线下活动</label></div>
+<div class="checkbox-item"><input type="checkbox" name="了解渠道" value="其他"><label>其他</label></div>
+</div>
+</td></tr>
+<tr><th>整体满意度</th><td>
+<div class="radio-group">
+<div class="radio-item"><input type="radio" name="满意度" value="非常不满意"><label>非常不满意</label></div>
+<div class="radio-item"><input type="radio" name="满意度" value="不满意"><label>不满意</label></div>
+<div class="radio-item"><input type="radio" name="满意度" value="一般"><label>一般</label></div>
+<div class="radio-item"><input type="radio" name="满意度" value="满意"><label>满意</label></div>
+<div class="radio-item"><input type="radio" name="满意度" value="非常满意"><label>非常满意</label></div>
+</div>
+</td></tr>
+<tr><th>最需要改进的地方</th><td><textarea name="改进建议" placeholder="请详细描述您的建议"></textarea></td></tr>
+<tr><th>希望新增的功能</th><td><textarea name="期望功能" placeholder="请描述您期望的新功能"></textarea></td></tr>
+</table>
+</div>
+
+<div class="note">
+<strong>注意事项：</strong><br>
+1. 请如实填写各项信息，我们将严格保密您的个人资料；<br>
+2. 商户请填写第二部分，流量主请填写第三部分；<br>
+3. 带有 <span style="color:#ef4444">*</span> 的为必填项；<br>
+4. 如有疑问，请联系客服：32313817@qq.com。
+</div>
+
+<div class="submit-area">
+<button type="submit" class="submit-btn">提交调研表</button>
+</div>
+
+</form>
+</div>
+</div>
+
+<div class="success-overlay" id="successOverlay">
+<div class="success-card">
+<div class="success-icon">&#10003;</div>
+<h2>提交成功！</h2>
+<p>感谢您参与本次调研，我们会尽快与您联系。</p>
+<button class="btn" onclick="closeSuccess()">确定</button>
+</div>
+</div>
+
+<script>
+document.getElementById('surveyForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    var action = this.action;
+
+    fetch(action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+    }).then(function(response) {
+        if (response.ok) {
+            document.getElementById('successOverlay').classList.add('show');
+            document.getElementById('surveyForm').reset();
+        } else {
+            alert('提交失败，请稍后重试或直接发送邮件至 32313817@qq.com');
+        }
+    }).catch(function(error) {
+        alert('网络错误，请稍后重试或直接发送邮件至 32313817@qq.com');
+    });
+});
+
+function closeSuccess() {
+    document.getElementById('successOverlay').classList.remove('show');
+}
+</script>
+
+</body>
+</html>
