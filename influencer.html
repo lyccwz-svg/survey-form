@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>流量主调研表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fde68a 100%);
+            min-height: 100vh;
+            color: #1f2937;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #92400e;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(8px);
+            margin-bottom: 20px;
+        }
+
+        .back-link:hover {
+            background: #fff;
+            transform: translateX(-3px);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+        }
+
+        .back-link::before {
+            content: "←";
+            font-size: 18px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+            color: #fff;
+            padding: 40px 30px;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            position: relative;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 15px;
+            opacity: 0.95;
+            position: relative;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(245, 158, 11, 0.12);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .section-title {
+            color: #b45309;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #fde68a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 22px;
+            background: linear-gradient(180deg, #f59e0b, #d97706);
+            border-radius: 3px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .table tr {
+            transition: background 0.2s ease;
+        }
+
+        .table tr:hover {
+            background: #fffbeb;
+        }
+
+        .table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #fef3c7;
+            vertical-align: middle;
+        }
+
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table .label {
+            width: 30%;
+            font-weight: 500;
+            color: #374151;
+            background: #fffaf0;
+        }
+
+        .table .input {
+            width: 70%;
+        }
+
+        .required {
+            color: #dc2626;
+            margin-left: 4px;
+            font-weight: 700;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #fde68a;
+            border-radius: 10px;
+            font-size: 14px;
+            background: #fffdfa;
+            color: #1f2937;
+            transition: all 0.25s ease;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="email"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
+            background: #fff;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .option-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 18px;
+        }
+
+        .option-group label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #374151;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: background 0.2s ease;
+        }
+
+        .option-group label:hover {
+            background: #fef3c7;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            accent-color: #f59e0b;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .notes {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 16px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            color: #78350f;
+            font-size: 14px;
+        }
+
+        .notes strong {
+            color: #b45309;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+
+        .notes ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .notes li {
+            padding: 3px 0;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .notes li::before {
+            content: "•";
+            color: #f59e0b;
+            position: absolute;
+            left: 4px;
+            font-weight: bold;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(245, 158, 11, 0.5);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 弹窗样式 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px 30px 30px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+        }
+
+        .modal-icon svg {
+            width: 44px;
+            height: 44px;
+            fill: #fff;
+        }
+
+        .modal h2 {
+            color: #065f46;
+            font-size: 24px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .modal p {
+            color: #4b5563;
+            font-size: 15px;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .modal-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(16, 185, 129, 0.45);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 12px;
+            }
+
+            .header {
+                padding: 28px 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .card-body {
+                padding: 18px;
+            }
+
+            .table .label,
+            .table .input {
+                display: block;
+                width: 100%;
+            }
+
+            .table .label {
+                background: transparent;
+                padding-bottom: 4px;
+                font-size: 14px;
+            }
+
+            .table td {
+                padding: 8px 6px;
+            }
+
+            .option-group {
+                gap: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">返回首页</a>
+
+        <div class="header">
+            <h1>流量主调研表</h1>
+            <p>感谢您抽出宝贵时间参与本次调研，您的信息将帮助我们更好地与您合作</p>
+        </div>
+
+        <form id="surveyForm" action="https://formsubmit.co/32313817@qq.com" method="POST">
+            <input type="hidden" name="_subject" value="流量主调研表提交">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+
+            <!-- 一、基本信息 -->
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="section-title">一、基本信息</h2>
+                    <table class="table">
+                        <tr>
+                            <td class="label">姓名<span class="required">*</span></td>
+                            <td class="input"><input type="text" name="姓名" required placeholder="请输入您的姓名"></td>
+                        </tr>
+                        <tr>
+                            <td class="label">联系电话<span class="required">*</span></td>
+                            <td class="input"><input type="tel" name="联系电话" required placeholder="请输入您的联系电话"></td>
+                        </tr>
+                        <tr>
+                            <td class="label">电子邮箱<span class="required">*</span></td>
+                            <td class="input"><input type="email" name="邮箱" required placeholder="请输入您的电子邮箱"></td>
+                        </tr>
+                        <tr>
+                            <td class="label">所在城市</td>
+                            <td class="input"><input type="text" name="所在城市" placeholder="请输入您所在的城市"></td>
+                        </tr>
+                        <tr>
+                            <td class="label">昵称<span class="required">*</span></td>
+                            <td class="input"><input type="text" name="昵称" required placeholder="请输入您的昵称"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 二、个人信息 -->
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="section-title">二、个人信息</h2>
+                    <table class="table">
+                        <tr>
+                            <td class="label">性别</td>
+                            <td class="input">
+                                <div class="option-group">
+                                    <label><input type="radio" name="性别" value="男"> 男</label>
+                                    <label><input type="radio" name="性别" value="女"> 女</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">年龄</td>
+                            <td class="input">
+                                <select name="年龄">
+                                    <option value="">请选择年龄段</option>
+                                    <option value="18-24岁">18-24岁</option>
+                                    <option value="25-30岁">25-30岁</option>
+                                    <option value="31-40岁">31-40岁</option>
+                                    <option value="41-50岁">41-50岁</option>
+                                    <option value="50岁以上">50岁以上</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">职业</td>
+                            <td class="input"><input type="text" name="职业" placeholder="请输入您的职业"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 三、账号数据 -->
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="section-title">三、账号数据</h2>
+                    <table class="table">
+                        <tr>
+                            <td class="label">运营平台</td>
+                            <td class="input">
+                                <div class="option-group">
+                                    <label><input type="checkbox" name="运营平台" value="抖音"> 抖音</label>
+                                    <label><input type="checkbox" name="运营平台" value="快手"> 快手</label>
+                                    <label><input type="checkbox" name="运营平台" value="小红书"> 小红书</label>
+                                    <label><input type="checkbox" name="运营平台" value="Bilibili"> Bilibili</label>
+                                    <label><input type="checkbox" name="运营平台" value="微信视频号"> 微信视频号</label>
+                                    <label><input type="checkbox" name="运营平台" value="微博"> 微博</label>
+                                    <label><input type="checkbox" name="运营平台" value="其他"> 其他</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">主要平台账号链接</td>
+                            <td class="input"><input type="text" name="账号链接" placeholder="请输入主要平台账号链接"></td>
+                        </tr>
+                        <tr>
+                            <td class="label">粉丝数量</td>
+                            <td class="input">
+                                <div class="option-group">
+                                    <label><input type="radio" name="粉丝数量" value="1万以下"> 1万以下</label>
+                                    <label><input type="radio" name="粉丝数量" value="1-10万"> 1-10万</label>
+                                    <label><input type="radio" name="粉丝数量" value="10-50万"> 10-50万</label>
+                                    <label><input type="radio" name="粉丝数量" value="50-100万"> 50-100万</label>
+                                    <label><input type="radio" name="粉丝数量" value="100-500万"> 100-500万</label>
+                                    <label><input type="radio" name="粉丝数量" value="500万以上"> 500万以上</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">内容类型</td>
+                            <td class="input">
+                                <div class="option-group">
+                                    <label><input type="checkbox" name="内容类型" value="美妆护肤"> 美妆护肤</label>
+                                    <label><input type="checkbox" name="内容类型" value="时尚穿搭"> 时尚穿搭</label>
+                                    <label><input type="checkbox" name="内容类型" value="美食探店"> 美食探店</label>
+                                    <label><input type="checkbox" name="内容类型" value="旅游出行"> 旅游出行</label>
+                                    <label><input type="checkbox" name="内容类型" value="游戏电竞"> 游戏电竞</label>
+                                    <label><input type="checkbox" name="内容类型" value="科技数码"> 科技数码</label>
+                                    <label><input type="checkbox" name="内容类型" value="知识教育"> 知识教育</label>
+                                    <label><input type="checkbox" name="内容类型" value="生活家居"> 生活家居</label>
+                                    <label><input type="checkbox" name="内容类型" value="健身运动"> 健身运动</label>
+                                    <label><input type="checkbox" name="内容类型" value="其他"> 其他</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">平均播放量</td>
+                            <td class="input">
+                                <div class="option-group">
+                                    <label><input type="radio" name="平均播放量" value="1千以下"> 1千以下</label>
+                                    <label><input type="radio" name="平均播放量" value="1-10千"> 1-10千</label>
+                                    <label><input type="radio" name="平均播放量" value="10-50千"> 10-50千</label>
+                                    <label><input type="radio" name="平均播放量" value="50-100千"> 50-100千</label>
+                                    <label><input type="radio" name="平均播放量" value="10万以上"> 10万以上</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">平均互动率</td>
+                            <td class="input">
+                                <div class="option-group">
+                                    <label><input type="radio" name="平均互动率" value="1%以下"> 1%以下</label>
+                                    <label><input type="radio" name="平均互动率" value="1%-3%"> 1%-3%</label>
+                                    <label><input type="radio" name="平均互动率" value="3%-5%"> 3%-5%</label>
+                                    <label><input type="radio" name="平均互动率" value="5%-10%"> 5%-10%</label>
+                                    <label><input type="radio" name="平均互动率" value="10%以上"> 10%以上</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">发布频率</td>
+                            <td class="input">
+                                <div class="option-group">
+                                    <label><input type="radio" name="发布频率" value="每周1-3条"> 每周1-3条</label>
+                                    <label><input type="radio" name="发布频率" value="每周3-7条"> 每周3-7条</label>
+                                    <label><input type="radio" name="发布频率" value="每日1条以上"> 每日1条以上</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 四、创作能力 -->
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="section-title">四、创作能力</h2>
+                    <table class="table">
+                        <tr>
+                            <td class="label">创作形式</td>
+                            <td class="input">
+                                <div class="option-group">
+                                    <label><input type="checkbox" name="创作形式" value="短视频"> 短视频</label>
+                                    <label><input type="checkbox" name="创作形式" value="直播"> 直播</label>
+                                    <label><input type="checkbox" name="创作形式" value="图文"> 图文</label>
+                                    <label><input type="checkbox" name="创作形式" value="长视频"> 长视频</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">专业技能</td>
+                            <td class="input">
+                                <div class="option-group">
+                                    <label><input type="checkbox" name="专业技能" value="拍摄"> 拍摄</label>
+                                    <label><input type="checkbox" name="专业技能" value="剪辑"> 剪辑</label>
+                                    <label><input type="checkbox" name="专业技能" value="文案"> 文案</label>
+                                    <label><input type="checkbox" name="专业技能" value="设计"> 设计</label>
+                                    <label><input type="checkbox" name="专业技能" value="主持"> 主持</label>
+                                    <label><input type="checkbox" name="专业技能" value="其他"> 其他</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">设备情况</td>
+                            <td class="input">
+                                <div class="option-group">
+                                    <label><input type="checkbox" name="设备情况" value="专业相机"> 专业相机</label>
+                                    <label><input type="checkbox" name="设备情况" value="手机"> 手机</label>
+                                    <label><input type="checkbox" name="设备情况" value="专业麦克风"> 专业麦克风</label>
+                                    <label><input type="checkbox" name="设备情况" value="补光灯"> 补光灯</label>
+                                    <label><input type="checkbox" name="设备情况" value="三脚架"> 三脚架</label>
+                                    <label><input type="checkbox" name="设备情况" value="专业剪辑软件"> 专业剪辑软件</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">团队情况</td>
+                            <td class="input">
+                                <div class="option-group">
+                                    <label><input type="radio" name="团队情况" value="个人创作"> 个人创作</label>
+                                    <label><input type="radio" name="团队情况" value="2-3人小团队"> 2-3人小团队</label>
+                                    <label><input type="radio" name="团队情况" value="MCN机构"> MCN机构</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 五、合作意愿 -->
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="section-title">五、合作意愿</h2>
+                    <table class="table">
+                        <tr>
+                            <td class="label">品牌合作经验</td>
+                            <td class="input">
+                                <div class="option-group">
+                                    <label><input type="radio" name="品牌合作经验" value="从未合作过"> 从未合作过</label>
+                                    <label><input type="radio" name="品牌合作经验" value="1-3次"> 1-3次</label>
+                                    <label><input type="radio" name="品牌合作经验" value="3-10次"> 3-10次</label>
+                                    <label><input type="radio" name="品牌合作经验" value="10次以上"> 10次以上</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">期望合作品牌类型</td>
+                            <td class="input"><textarea name="期望合作品牌" placeholder="请描述您期望合作的品牌类型"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="label">不接受的品牌类型</td>
+                            <td class="input"><textarea name="不接受品牌" placeholder="请描述您不接受的品牌类型"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="label">期望单条报价</td>
+                            <td class="input">
+                                <div class="option-group">
+                                    <label><input type="radio" name="期望报价" value="1千元以下"> 1千元以下</label>
+                                    <label><input type="radio" name="期望报价" value="1-5千元"> 1-5千元</label>
+                                    <label><input type="radio" name="期望报价" value="5千-1万元"> 5千-1万元</label>
+                                    <label><input type="radio" name="期望报价" value="1-5万元"> 1-5万元</label>
+                                    <label><input type="radio" name="期望报价" value="5万元以上"> 5万元以上</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">可投入时间</td>
+                            <td class="input">
+                                <div class="option-group">
+                                    <label><input type="radio" name="可投入时间" value="兼职(每周1-2天)"> 兼职(每周1-2天)</label>
+                                    <label><input type="radio" name="可投入时间" value="半全职(每周3-4天)"> 半全职(每周3-4天)</label>
+                                    <label><input type="radio" name="可投入时间" value="全职(每周5天以上)"> 全职(每周5天以上)</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">个人优势</td>
+                            <td class="input"><textarea name="个人优势" placeholder="请描述您的个人优势"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="label">其他需求或建议</td>
+                            <td class="input"><textarea name="其他建议" placeholder="请描述您的其他需求或建议"></textarea></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 六、用户体验反馈 -->
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="section-title">六、用户体验反馈</h2>
+                    <table class="table">
+                        <tr>
+                            <td class="label">了解渠道</td>
+                            <td class="input">
+                                <div class="option-group">
+                                    <label><input type="checkbox" name="了解渠道" value="社交媒体"> 社交媒体</label>
+                                    <label><input type="checkbox" name="了解渠道" value="搜索引擎"> 搜索引擎</label>
+                                    <label><input type="checkbox" name="了解渠道" value="朋友推荐"> 朋友推荐</label>
+                                    <label><input type="checkbox" name="了解渠道" value="线下活动"> 线下活动</label>
+                                    <label><input type="checkbox" name="了解渠道" value="其他"> 其他</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">整体满意度</td>
+                            <td class="input">
+                                <div class="option-group">
+                                    <label><input type="radio" name="满意度" value="非常不满意"> 非常不满意</label>
+                                    <label><input type="radio" name="满意度" value="不满意"> 不满意</label>
+                                    <label><input type="radio" name="满意度" value="一般"> 一般</label>
+                                    <label><input type="radio" name="满意度" value="满意"> 满意</label>
+                                    <label><input type="radio" name="满意度" value="非常满意"> 非常满意</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">改进建议</td>
+                            <td class="input"><textarea name="改进建议" placeholder="请描述您的改进建议"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="label">期望功能</td>
+                            <td class="input"><textarea name="期望功能" placeholder="请描述您期望的功能"></textarea></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 注意事项 -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="notes">
+                        <strong>注意事项</strong>
+                        <ul>
+                            <li>带有 <span style="color:#dc2626;font-weight:700;">*</span> 的为必填项，请务必填写完整。</li>
+                            <li>您提交的所有信息将严格保密，仅用于合作评估，不会泄露给第三方。</li>
+                            <li>提交成功后，我们将在 3 个工作日内与您联系。</li>
+                            <li>如有疑问，请通过页面提供的联系方式与我们沟通。</li>
+                        </ul>
+                    </div>
+                    <button type="submit" class="submit-btn" id="submitBtn">提 交 调 研 表</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- 成功弹窗 -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal">
+            <div class="modal-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+            </div>
+            <h2>提交成功！</h2>
+            <p>感谢您参与本次调研，我们会尽快与您联系。</p>
+            <button class="modal-btn" id="closeModal">确 定</button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('surveyForm');
+        const modal = document.getElementById('successModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.textContent = '提交中...';
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    modal.classList.add('active');
+                    form.reset();
+                } else {
+                    alert('提交失败，请稍后重试。（状态码：' + response.status + '）');
+                }
+            } catch (error) {
+                alert('提交失败，请检查网络连接后重试。');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '提 交 调 研 表';
+            }
+        });
+
+        closeModalBtn.addEventListener('click', function () {
+            modal.classList.remove('active');
+        });
+
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

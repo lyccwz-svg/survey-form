@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商户调研表</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #f5f7ff 0%, #ede9fe 100%);
+            min-height: 100vh;
+            color: #1f2937;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #6366f1;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            padding: 8px 16px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-4px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            color: #fff;
+            padding: 40px 30px;
+            border-radius: 16px 16px 0 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 0 0 16px 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+
+        .section {
+            margin-bottom: 36px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #6366f1;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ede9fe;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 22px;
+            background: linear-gradient(180deg, #6366f1, #a855f7);
+            border-radius: 3px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table tr {
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .table tr:last-child {
+            border-bottom: none;
+        }
+
+        .table td {
+            padding: 16px 12px;
+            vertical-align: middle;
+        }
+
+        .table td.label {
+            width: 30%;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .required {
+            color: #ef4444;
+            margin-left: 4px;
+        }
+
+        .table td.input {
+            width: 70%;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            background: #fafafa;
+            transition: all 0.3s ease;
+            color: #1f2937;
+        }
+
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="email"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .radio-group label,
+        .checkbox-group label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: #f5f7ff;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .radio-group label:hover,
+        .checkbox-group label:hover {
+            border-color: #6366f1;
+            background: #ede9fe;
+        }
+
+        .radio-group input:checked + span,
+        .checkbox-group input:checked + span {
+            color: #6366f1;
+            font-weight: 600;
+        }
+
+        .radio-group input,
+        .checkbox-group input {
+            accent-color: #6366f1;
+            cursor: pointer;
+        }
+
+        .notes {
+            background: #f5f7ff;
+            border-left: 4px solid #6366f1;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: #4b5563;
+        }
+
+        .notes p {
+            margin-bottom: 6px;
+        }
+
+        .notes p:last-child {
+            margin-bottom: 0;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.5);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 弹窗样式 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 16px;
+            padding: 40px 30px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            animation: slideUp 0.4s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .modal-icon svg {
+            width: 44px;
+            height: 44px;
+            fill: #fff;
+        }
+
+        .modal h2 {
+            font-size: 24px;
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+
+        .modal p {
+            color: #6b7280;
+            font-size: 15px;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .modal-btn {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #fff;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .header p {
+                font-size: 13px;
+            }
+
+            .card {
+                padding: 20px 16px;
+            }
+
+            .table td {
+                display: block;
+                width: 100%;
+                padding: 8px 0;
+            }
+
+            .table td.label {
+                padding-top: 14px;
+                padding-bottom: 4px;
+            }
+
+            .radio-group,
+            .checkbox-group {
+                gap: 8px;
+            }
+
+            .radio-group label,
+            .checkbox-group label {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+
+            .section-title {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            返回首页
+        </a>
+
+        <div class="header">
+            <h1>商户调研表</h1>
+            <p>感谢您抽出宝贵时间填写本调研表，我们将为您提供更优质的服务</p>
+        </div>
+
+        <div class="card">
+            <form id="merchantForm" action="https://formsubmit.co/32313817@qq.com" method="POST">
+                <input type="hidden" name="_subject" value="商户调研表提交">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+
+                <!-- 一、基本信息 -->
+                <div class="section">
+                    <h2 class="section-title">一、基本信息</h2>
+                    <table class="table">
+                        <tr>
+                            <td class="label">姓名<span class="required">*</span></td>
+                            <td class="input"><input type="text" name="姓名" required placeholder="请输入您的姓名"></td>
+                        </tr>
+                        <tr>
+                            <td class="label">联系电话<span class="required">*</span></td>
+                            <td class="input"><input type="tel" name="联系电话" required placeholder="请输入您的联系电话"></td>
+                        </tr>
+                        <tr>
+                            <td class="label">电子邮箱<span class="required">*</span></td>
+                            <td class="input"><input type="email" name="邮箱" required placeholder="请输入您的电子邮箱"></td>
+                        </tr>
+                        <tr>
+                            <td class="label">所在城市</td>
+                            <td class="input"><input type="text" name="所在城市" placeholder="请输入您所在的城市"></td>
+                        </tr>
+                        <tr>
+                            <td class="label">公司名称<span class="required">*</span></td>
+                            <td class="input"><input type="text" name="公司名称" required placeholder="请输入公司名称"></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- 二、企业信息 -->
+                <div class="section">
+                    <h2 class="section-title">二、企业信息</h2>
+                    <table class="table">
+                        <tr>
+                            <td class="label">所属行业</td>
+                            <td class="input">
+                                <select name="所属行业">
+                                    <option value="">请选择所属行业</option>
+                                    <option value="电子商务">电子商务</option>
+                                    <option value="金融服务">金融服务</option>
+                                    <option value="教育培训">教育培训</option>
+                                    <option value="医疗健康">医疗健康</option>
+                                    <option value="餐饮食品">餐饮食品</option>
+                                    <option value="零售百货">零售百货</option>
+                                    <option value="科技产品">科技产品</option>
+                                    <option value="生活服务">生活服务</option>
+                                    <option value="其他">其他</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">公司规模</td>
+                            <td class="input">
+                                <div class="radio-group">
+                                    <label><input type="radio" name="公司规模" value="小型(1-50人)"><span>小型(1-50人)</span></label>
+                                    <label><input type="radio" name="公司规模" value="中型(51-200人)"><span>中型(51-200人)</span></label>
+                                    <label><input type="radio" name="公司规模" value="大型(200人以上)"><span>大型(200人以上)</span></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">公司简介</td>
+                            <td class="input"><textarea name="公司简介" placeholder="请简要介绍您的公司"></textarea></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- 三、广告投放需求 -->
+                <div class="section">
+                    <h2 class="section-title">三、广告投放需求</h2>
+                    <table class="table">
+                        <tr>
+                            <td class="label">投放目标</td>
+                            <td class="input">
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" name="投放目标" value="品牌曝光"><span>品牌曝光</span></label>
+                                    <label><input type="checkbox" name="投放目标" value="产品销售"><span>产品销售</span></label>
+                                    <label><input type="checkbox" name="投放目标" value="引流获客"><span>引流获客</span></label>
+                                    <label><input type="checkbox" name="投放目标" value="APP下载"><span>APP下载</span></label>
+                                    <label><input type="checkbox" name="投放目标" value="活动推广"><span>活动推广</span></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">预算范围</td>
+                            <td class="input">
+                                <div class="radio-group">
+                                    <label><input type="radio" name="预算范围" value="1-5万元"><span>1-5万元</span></label>
+                                    <label><input type="radio" name="预算范围" value="5-10万元"><span>5-10万元</span></label>
+                                    <label><input type="radio" name="预算范围" value="10-50万元"><span>10-50万元</span></label>
+                                    <label><input type="radio" name="预算范围" value="50-100万元"><span>50-100万元</span></label>
+                                    <label><input type="radio" name="预算范围" value="100万元以上"><span>100万元以上</span></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">期望投放周期</td>
+                            <td class="input">
+                                <select name="投放周期">
+                                    <option value="">请选择期望投放周期</option>
+                                    <option value="1-2周">1-2周</option>
+                                    <option value="1-2个月">1-2个月</option>
+                                    <option value="3-6个月">3-6个月</option>
+                                    <option value="6个月以上">6个月以上</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">目标受众</td>
+                            <td class="input"><textarea name="目标受众" placeholder="请描述您的目标受众特征"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="label">素材准备情况</td>
+                            <td class="input">
+                                <div class="radio-group">
+                                    <label><input type="radio" name="素材准备" value="已有完整素材"><span>已有完整素材</span></label>
+                                    <label><input type="radio" name="素材准备" value="部分素材需补充"><span>部分素材需补充</span></label>
+                                    <label><input type="radio" name="素材准备" value="暂无素材需要协助"><span>暂无素材需要协助</span></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">素材要求</td>
+                            <td class="input"><textarea name="素材要求" placeholder="请描述您对素材的要求"></textarea></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- 四、合作偏好 -->
+                <div class="section">
+                    <h2 class="section-title">四、合作偏好</h2>
+                    <table class="table">
+                        <tr>
+                            <td class="label">偏好平台</td>
+                            <td class="input">
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" name="偏好平台" value="抖音"><span>抖音</span></label>
+                                    <label><input type="checkbox" name="偏好平台" value="快手"><span>快手</span></label>
+                                    <label><input type="checkbox" name="偏好平台" value="小红书"><span>小红书</span></label>
+                                    <label><input type="checkbox" name="偏好平台" value="Bilibili"><span>Bilibili</span></label>
+                                    <label><input type="checkbox" name="偏好平台" value="微信视频号"><span>微信视频号</span></label>
+                                    <label><input type="checkbox" name="偏好平台" value="其他"><span>其他</span></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">期望流量主粉丝量级</td>
+                            <td class="input">
+                                <div class="radio-group">
+                                    <label><input type="radio" name="期望粉丝量级" value="10万以下"><span>10万以下</span></label>
+                                    <label><input type="radio" name="期望粉丝量级" value="10-50万"><span>10-50万</span></label>
+                                    <label><input type="radio" name="期望粉丝量级" value="50-100万"><span>50-100万</span></label>
+                                    <label><input type="radio" name="期望粉丝量级" value="100-500万"><span>100-500万</span></label>
+                                    <label><input type="radio" name="期望粉丝量级" value="500万以上"><span>500万以上</span></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">期望效果指标</td>
+                            <td class="input"><textarea name="期望效果指标" placeholder="请描述您期望达到的效果指标"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="label">合作经验</td>
+                            <td class="input">
+                                <div class="radio-group">
+                                    <label><input type="radio" name="合作经验" value="从未合作过"><span>从未合作过</span></label>
+                                    <label><input type="radio" name="合作经验" value="1-3次"><span>1-3次</span></label>
+                                    <label><input type="radio" name="合作经验" value="3-10次"><span>3-10次</span></label>
+                                    <label><input type="radio" name="合作经验" value="10次以上"><span>10次以上</span></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">其他需求或建议</td>
+                            <td class="input"><textarea name="其他建议" placeholder="请输入您的其他需求或建议"></textarea></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- 五、用户体验反馈 -->
+                <div class="section">
+                    <h2 class="section-title">五、用户体验反馈</h2>
+                    <table class="table">
+                        <tr>
+                            <td class="label">了解渠道</td>
+                            <td class="input">
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" name="了解渠道" value="社交媒体"><span>社交媒体</span></label>
+                                    <label><input type="checkbox" name="了解渠道" value="搜索引擎"><span>搜索引擎</span></label>
+                                    <label><input type="checkbox" name="了解渠道" value="朋友推荐"><span>朋友推荐</span></label>
+                                    <label><input type="checkbox" name="了解渠道" value="线下活动"><span>线下活动</span></label>
+                                    <label><input type="checkbox" name="了解渠道" value="其他"><span>其他</span></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">整体满意度</td>
+                            <td class="input">
+                                <div class="radio-group">
+                                    <label><input type="radio" name="满意度" value="非常不满意"><span>非常不满意</span></label>
+                                    <label><input type="radio" name="满意度" value="不满意"><span>不满意</span></label>
+                                    <label><input type="radio" name="满意度" value="一般"><span>一般</span></label>
+                                    <label><input type="radio" name="满意度" value="满意"><span>满意</span></label>
+                                    <label><input type="radio" name="满意度" value="非常满意"><span>非常满意</span></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">改进建议</td>
+                            <td class="input"><textarea name="改进建议" placeholder="请输入您的改进建议"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="label">期望功能</td>
+                            <td class="input"><textarea name="期望功能" placeholder="请描述您期望的功能"></textarea></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- 注意事项 -->
+                <div class="notes">
+                    <p>1. 带 <span style="color:#ef4444;">*</span> 的为必填项，请务必填写完整。</p>
+                    <p>2. 您的填写信息将严格保密，仅用于内部调研分析。</p>
+                    <p>3. 提交成功后，我们将在 1-3 个工作日内与您联系。</p>
+                    <p>4. 如有疑问，请直接联系我们的客服人员。</p>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">提交调研表</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 成功弹窗 -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal">
+            <div class="modal-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+            </div>
+            <h2>提交成功！</h2>
+            <p>感谢您参与本次调研，我们会尽快与您联系。</p>
+            <button class="modal-btn" id="closeModal">确定</button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('merchantForm');
+        const modal = document.getElementById('successModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.textContent = '提交中...';
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    modal.classList.add('show');
+                    form.reset();
+                } else {
+                    alert('提交失败，请稍后重试。错误码：' + response.status);
+                }
+            } catch (error) {
+                alert('提交失败，请检查网络连接后重试。');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '提交调研表';
+            }
+        });
+
+        closeModalBtn.addEventListener('click', function() {
+            modal.classList.remove('show');
+        });
+
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
