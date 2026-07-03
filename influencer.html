@@ -476,10 +476,7 @@ select {
     </div>
   </section>
 
-  <form id="surveyForm" action="https://formsubmit.co/32313817@qq.com" method="POST" novalidate>
-    <input type="hidden" name="_subject" value="流量主调研表提交">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_captcha" value="false">
+  <form id="surveyForm" novalidate>
 
     <!-- 01 基本信息 -->
     <div class="section fade-in">
@@ -820,7 +817,9 @@ select {
   <div class="modal">
     <div class="eyebrow">Submission Received</div>
     <h2>感谢</h2>
-    <p>您的调研表已成功提交。我们会在 3 个工作日内与您联系，请保持通讯畅通。</p>
+    <div id="resultContent">
+      <p>您的调研表已成功提交。我们会在 3 个工作日内与您联系，请保持通讯畅通。</p>
+    </div>
     <button class="modal-btn" id="closeModal">关 闭</button>
   </div>
 </div>
@@ -852,25 +851,47 @@ select {
 
     try {
       const formData = new FormData(form);
-      const response = await fetch(form.action, {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: formData
+      const data = {};
+      formData.forEach((value, key) => {
+        data[key] = value;
       });
 
-      if (response.ok) {
-        modal.classList.add('active');
-        form.reset();
-      } else {
-        alert('提交失败，请稍后重试。（状态码：' + response.status + '）');
+      let textContent = '【流量主调研表】\n\n';
+      for (const key in data) {
+        textContent += key + ': ' + data[key] + '\n';
       }
+      textContent += '\n提交时间: ' + new Date().toLocaleString('zh-CN');
+
+      const mailtoUrl = 'mailto:32313817@qq.com?subject=' + encodeURIComponent('流量主调研表提交') + '&body=' + encodeURIComponent(textContent);
+      
+      const resultDiv = document.getElementById('resultContent');
+      resultDiv.innerHTML = `
+        <p>您的调研表已填写完成，请通过以下方式提交：</p>
+        <div style="margin: 20px 0;">
+          <button onclick="window.location.href='${mailtoUrl}'" style="padding: 12px 24px; background: var(--primary); color: white; border: none; cursor: pointer; font-size: 16px; border-radius: 2px;">点击发送邮件提交</button>
+        </div>
+        <p style="font-size: 14px; color: var(--text-muted);">或者复制下方内容，手动发送到邮箱 32313817@qq.com</p>
+        <textarea id="resultText" readonly style="width: 100%; height: 200px; padding: 12px; border: 1px solid var(--border); border-radius: 4px; font-family: monospace; font-size: 13px;">${textContent}</textarea>
+        <button onclick="copyResult()" style="margin-top: 10px; padding: 8px 16px; border: 1px solid var(--border); background: white; cursor: pointer;">复制内容</button>
+      `;
+
+      modal.classList.add('active');
+      form.reset();
     } catch (error) {
-      alert('提交失败，请检查网络连接后重试。');
+      alert('处理失败，请稍后重试。');
     } finally {
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalText;
     }
   });
+
+  function copyResult() {
+    const textarea = document.getElementById('resultText');
+    textarea.select();
+    textarea.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(textarea.value);
+    alert('已复制到剪贴板');
+  }
 
   closeModalBtn.addEventListener('click', function () {
     modal.classList.remove('active');
